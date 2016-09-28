@@ -2,7 +2,6 @@
 using System.IO;
 using System.Xml.Serialization;
 using System.Text;
-//using System.Web.Script.Serialization;
 using UnityEngine;
 
 public static class SheetDataManager  {
@@ -14,7 +13,6 @@ public static class SheetDataManager  {
 
     public static void Save(SheetData saveData)
     {
-        //JavaScriptSerializer objse = new JavaScriptSerializer();
         var serializer = new XmlSerializer(typeof(SheetData));
 
         //to ensure the encoding

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-public class Section : SheetData {
+[Serializable]
+public class Section  {
     public string[] Nodetype = new string[4] { "  ", "Red", "Green", "Blue" };
     public int[] Beat = new int[8];
 
