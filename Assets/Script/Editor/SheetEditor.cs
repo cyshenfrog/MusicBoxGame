@@ -13,6 +13,7 @@ public class SheetEditor : EditorWindow
     static string[] sheetPool;
     void OnEnable()
     {
+        //data = SheetDataManager.LoadList();
         sheetPool = new string[songNumber];
         for (int i = 0; i < songNumber; i++)
         {
@@ -22,6 +23,7 @@ public class SheetEditor : EditorWindow
             else
                 sheetPool[i] = "曲目" + i + ":" + data[i].Audio;
         }
+
 
     }
     [MenuItem("Editor/譜面編輯器")]
@@ -44,14 +46,14 @@ public class SheetEditor : EditorWindow
             Debug.Log(index);
 
         }
-        if (GUILayout.Button("Load", button))
-        {
-            if (EditorUtility.DisplayDialog("迷之音", "確定要讀入" + sheetPool[index] + "嘛?", "是", "再考慮"))
-            {
-                Load();
-            }
+        //if (GUILayout.Button("Load", button))
+        //{
+        //    if (EditorUtility.DisplayDialog("迷之音", "確定要讀入" + sheetPool[index] + "嘛?", "是", "再考慮"))
+        //    {
+        //        Load();
+        //    }
 
-        }
+        //}
         EditorGUILayout.EndHorizontal();
 
         //if (isNew)
@@ -96,7 +98,7 @@ public class SheetEditor : EditorWindow
         }
         if (GUILayout.Button("Save", button))
         {
-            Save();
+            SheetDataManager.Save(data.ToArray());
         }
 
 
@@ -135,9 +137,5 @@ public class SheetEditor : EditorWindow
         data[index] = SheetDataManager.Load();
     }
 
-    void Save()
-    {
-       SheetDataManager.Save(data[index]);
-    }
 
 }
