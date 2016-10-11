@@ -9,20 +9,13 @@ public class SheetEditor : EditorWindow
     int songNumber = 5;
     bool isNew = true;
     static int index;
-    static List<SheetData> data = new List<SheetData>();
-    static string[] sheetPool;
+    SheetData data;
+    static List<string> sheetPool = new List<string>();
     void OnEnable()
     {
         //data = SheetDataManager.LoadList();
-        sheetPool = new string[songNumber];
-        for (int i = 0; i < songNumber; i++)
-        {
-            data.Add(new SheetData());
-            if (data[i].Audio == "")
-                sheetPool[i] = "曲目" + i + ": 尚未選擇BGM";
-            else
-                sheetPool[i] = "曲目" + i + ":" + data[i].Audio;
-        }
+
+        data = new SheetData();
 
 
     }
@@ -39,22 +32,30 @@ public class SheetEditor : EditorWindow
     {
         EditorGUILayout.BeginHorizontal();
 
-        index = EditorGUILayout.Popup(index, sheetPool, GUILayout.Width(100));
-        if (data.Count != index)
+        index = EditorGUILayout.Popup(index, sheetPool.ToArray(), GUILayout.Width(100));
+        if (GUILayout.Button("New Sheet", button))
         {
-            Debug.Log(data.Count);
-            Debug.Log(index);
+            sheetPool.Add( OpenAudioSource() );
+            
+        }
+        if (GUILayout.Button("Delete", button))
+        {
+            if (EditorUtility.DisplayDialog("迷之音", "確定要刪除" + sheetPool[index] + "嘛?", "是", "再考慮"))
+            {
+                sheetPool.RemoveAt(index);
+            }
 
         }
-        //if (GUILayout.Button("Load", button))
-        //{
-        //    if (EditorUtility.DisplayDialog("迷之音", "確定要讀入" + sheetPool[index] + "嘛?", "是", "再考慮"))
-        //    {
-        //        Load();
-        //    }
 
-        //}
-        EditorGUILayout.EndHorizontal();
+        if (GUILayout.Button("Load", button))
+        {
+            if (EditorUtility.DisplayDialog("迷之音", "確定要讀入" + sheetPool[index] + "嘛?", "是", "再考慮"))
+            {
+                Load();
+            }
+
+         }
+            EditorGUILayout.EndHorizontal();
 
         //if (isNew)
         //{
@@ -63,11 +64,9 @@ public class SheetEditor : EditorWindow
         //        data.Add(new SheetData());
         //        Debug.Log(index);
         //        isNew = false;
-
         //    }
-
         //}
-        Draw();
+        //Draw();
 
     }
 
@@ -76,29 +75,29 @@ public class SheetEditor : EditorWindow
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("ChooseMusic", button))
             OpenAudioSource();
-        EditorGUILayout.LabelField(data[index].Audio);
+        EditorGUILayout.LabelField(data.Audio);
         EditorGUILayout.EndHorizontal();
         if (GUILayout.Button("New Section", button))
         {
-            data[index].section.Add(new Section());
-            Debug.Log(data[index].section.Count);
+            data.section.Add(new Section());
+            Debug.Log(data.section.Count);
 
         }
 
-        for (int j = 0; j < data[index].section.Count; j++)
+        for (int j = 0; j < data.section.Count; j++)
         {
             EditorGUILayout.LabelField("----------------------------------------------------------");
             EditorGUILayout.BeginHorizontal();
             for (int z = 0; z < 8; z++)
             {
-                data[index].section[j].Beat[z] = EditorGUILayout.Popup(data[index].section[j].Beat[z], data[index].section[index].Nodetype);
+                data.section[j].Beat[z] = EditorGUILayout.Popup(data.section[j].Beat[z], data.section[index].Nodetype);
             }
             EditorGUILayout.EndHorizontal();
             
         }
         if (GUILayout.Button("Save", button))
         {
-            SheetDataManager.Save(data.ToArray());
+            //SheetDataManager.Save(data.ToArray());
         }
 
 
@@ -106,9 +105,9 @@ public class SheetEditor : EditorWindow
 
 
 
-    void OpenAudioSource()
+    string OpenAudioSource()
     {
-        string file = EditorUtility.OpenFilePanel("Open Audio Source", Application.dataPath + "/Resources", "");
+        string file = EditorUtility.OpenFilePanel("Open Audio Source", Application.dataPath + "/Resources/", "");
         if (file != "")
         {
             string resPath = Application.dataPath + "/Resources/";
@@ -125,16 +124,24 @@ public class SheetEditor : EditorWindow
             if (source == null)
             {
                 Debug.LogError("The file is not a Audio Source.");
-                return;
+                return null;
             }
-            data[index].Audio = file;
+            //檢查是否重複寫譜
+            //if (sheetPool.Exists)
+            //{
+
+            //}
+            //data.Audio = file;
         }
+        Debug.Log(file);
+        return file;
+
     }
 
 
     void Load()
     {
-        data[index] = SheetDataManager.Load();
+        data = SheetDataManager.Load();
     }
 
 

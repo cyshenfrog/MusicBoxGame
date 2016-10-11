@@ -4,7 +4,8 @@ using System.Text;
 using System.Collections.Generic;
 
 public class TEST : MonoBehaviour {
-    static SheetData data;
+    static List<SheetData> data = new List<SheetData>();
+
 
     public string test;
     public int bpmTest;
@@ -13,17 +14,22 @@ public class TEST : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        data = new SheetData();
-        Debug.Log(data.Audio);
-        Debug.Log(data.Bpm);
+        //Debug.Log(data.Audio);
+        //Debug.Log(data.Bpm);
 
-        Debug.Log(data.Beat);
+        //Debug.Log(data.Beat);
 
-        data.Audio = "a";
-        data.Bpm = 120;
         for (int i = 0; i < 5; i++)
         {
-            data.Beat.Add(i);
+            data.Add(new SheetData());
+            data[i].Audio = "a";
+            data[i].Bpm = 120;
+            int a = i;
+            for (int j = 0; j < 5; j++)
+            {
+                data[a].Beat.Add(j);
+            }
+
         }
 
         string json = JsonUtility.ToJson(data);
@@ -36,10 +42,10 @@ public class TEST : MonoBehaviour {
 
         test = newSheet.Audio;
         bpmTest = newSheet.Bpm;
-        for (int i = 0; i < 5; i++)
-        {
-            beatTest.Add(newSheet.Beat[i]);
-        }
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    beatTest.Add(newSheet.Beat[i]);
+        //}
 
         Debug.Log(test);
         Debug.Log(bpmTest);
