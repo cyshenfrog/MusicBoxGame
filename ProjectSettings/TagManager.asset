@@ -7,6 +7,8 @@ TagManager:
   - 0
   - 1
   - 2
+  - HitArea
+  - 3
   layers:
   - Default
   - TransparentFX

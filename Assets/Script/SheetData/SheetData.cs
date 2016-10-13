@@ -2,12 +2,13 @@
 using System.Collections;
 using System;
 
-[Serializable]
+
 public class SheetData   {
     public int Bpm;
     public string Audio;
-    public List<Section> section = new List<Section>();
     public string[] Nodetype = new string[4] { "  ", "Red", "Green", "Blue" };
-    public List<int> Beat = new List<int>();
+    public List<int> Ch1 = new List<int>();
+    public List<int> Ch2 = new List<int>();
+    public List<int> Ch3 = new List<int>();
 
 }

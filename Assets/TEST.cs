@@ -27,7 +27,7 @@ public class TEST : MonoBehaviour {
             int a = i;
             for (int j = 0; j < 5; j++)
             {
-                data[a].Beat.Add(j);
+                data[a].Ch1.Add(j);
             }
 
         }

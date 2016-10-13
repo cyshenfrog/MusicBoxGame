@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: bc8bc24369dff1947a64e89c00ca7475, type: 2}
   mSprites:
-  - name: 0
+  - name: 1
     x: 1677
     y: 907
     width: 117
@@ -54,10 +54,10 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: 1
-    x: 1795
-    y: 908
-    width: 117
+  - name: 2
+    x: 1677
+    y: 790
+    width: 116
     height: 116
     borderLeft: 0
     borderRight: 0
@@ -67,10 +67,10 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: 2
-    x: 1677
-    y: 790
-    width: 116
+  - name: 3
+    x: 1795
+    y: 908
+    width: 117
     height: 116
     borderLeft: 0
     borderRight: 0

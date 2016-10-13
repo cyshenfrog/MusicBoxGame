@@ -5,7 +5,9 @@ public class Notes : MonoBehaviour {
     //SheetMusicData MySheetMusic;//需要反序列化來初始他的值
     public int bpm;
     public float Delay;
+    public int NodeType;
     float speedmultiplier;
+    public UISprite Sprite;
     TweenPosition TP;
     TweenAlpha TA;
     TweenScale TS;
@@ -34,6 +36,12 @@ public class Notes : MonoBehaviour {
 	// slot range is 1500 , 1x speed have 8 beat
 	void Start ()
     {
+        if (NodeType == 0)
+            Sprite.spriteName = null;
+        else if (NodeType >0&& NodeType<4)
+            Sprite.spriteName = NodeType.ToString();
+        else
+            Debug.LogError("wrong color code");
         speedmultiplier = SettingData.Speed;
         TA = gameObject.GetComponent<TweenAlpha>();
         TP = gameObject.GetComponent<TweenPosition>();
